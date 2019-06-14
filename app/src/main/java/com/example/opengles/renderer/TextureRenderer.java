@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
+import com.example.opengles.gl.utils.GLMatrixUtils;
 import com.example.opengles.layer.TextureLayer;
 
 import javax.microedition.khronos.egl.EGLConfig;
@@ -22,13 +23,20 @@ public class TextureRenderer implements GLSurfaceView.Renderer {
     private int width;
     private int height;
     private Bitmap bitmap;
+    private int type = DrawType.NON_TEXTURE_MATRIX;
 
     public TextureRenderer(Context context) {
         this.context = context;
     }
 
+    public void setUserSelectDrawType(@DrawType int type) {
+        this.type = type;
+    }
+
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
+        GLES20.glClearColor(0f, 0f, 0f, 1f);
+
         try {
             bitmap = BitmapFactory.decodeStream(context.getResources().getAssets().open("texture/fengj.png"));
         } catch (IOException e) {
@@ -46,8 +54,16 @@ public class TextureRenderer implements GLSurfaceView.Renderer {
 
     @Override
     public void onDrawFrame(GL10 gl) {
-//        textureLayer.onDraw(getMvpMatrix(), GLMatrixUtils.getIdentityMatrix());
-        textureLayer.onDraw(getMvpMatrix(), getTextureMatrix());
+        GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
+
+        if (type == DrawType.NON_TEXTURE_MATRIX) {
+            textureLayer.onDraw(getMvpMatrix(), GLMatrixUtils.getIdentityMatrix());
+            return;
+        }
+        if (type == DrawType.TEXTURE_MATRIX_1_1) {
+            textureLayer.onDraw(getMvpMatrix(), getTextureMatrix());
+            return;
+        }
     }
 
     private float[] getMvpMatrix() {
@@ -88,5 +104,8 @@ public class TextureRenderer implements GLSurfaceView.Renderer {
         return matrix;
     }
 
-
+    public @interface DrawType {
+        int NON_TEXTURE_MATRIX = 0;
+        int TEXTURE_MATRIX_1_1 = 1;
+    }
 }

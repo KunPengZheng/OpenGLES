@@ -14,16 +14,17 @@ class TextureActivity : AppCompatActivity() {
     var glSurfaceView: GLSurfaceView? = null
     var matrix_1_1Btn: Button? = null
     var nonMatrixBtn: Button? = null
+    var textureRenderer: TextureRenderer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_texture)
 
-        var triangleRenderer = TextureRenderer(this)
+        textureRenderer = TextureRenderer(this)
 
         glSurfaceView = findViewById(R.id.gl_view)
         glSurfaceView?.setEGLContextClientVersion(2)
-        glSurfaceView?.setRenderer(triangleRenderer)
+        glSurfaceView?.setRenderer(textureRenderer)
         glSurfaceView?.renderMode = GLSurfaceView.RENDERMODE_WHEN_DIRTY
 
         nonMatrixBtn = findViewById(R.id.none_matrix)
@@ -35,11 +36,13 @@ class TextureActivity : AppCompatActivity() {
 
     val l = View.OnClickListener {
         if (it === nonMatrixBtn) {
-
+            textureRenderer?.setUserSelectDrawType(TextureRenderer.DrawType.NON_TEXTURE_MATRIX)
+            glSurfaceView?.requestRender()
         }
 
         if (it === nonMatrixBtn) {
-
+            textureRenderer?.setUserSelectDrawType(TextureRenderer.DrawType.TEXTURE_MATRIX_1_1)
+            glSurfaceView?.requestRender()
         }
     }
 }
