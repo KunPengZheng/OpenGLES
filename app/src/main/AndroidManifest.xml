@@ -20,6 +20,7 @@
         </activity>
 
         <activity android:name=".TriangleActivity"/>
+        <activity android:name=".TextureActivity"/>
 
     </application>
 

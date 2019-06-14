@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="gl_view" type="id"/>
-    <item name="tv_view" type="id"/>
-    <item name="btn_view_port_type" type="id"/>
+
+    <item name="mBtn" type="id"/>
+    <item name="recycle_view" type="id"/>
+
     <item name="btn_matrix_type" type="id"/>
+    <item name="btn_view_port_type" type="id"/>
 </resources>
