@@ -64,12 +64,25 @@ public class TriangleRenderer implements GLSurfaceView.Renderer {
     private void matrixDraw() {
         int[] colorArr = new int[]{0xFF4081, 0x008577, Color.YELLOW};
         for (int i = 0; i < viewPortList.size(); i++) {
-            // 现在大视口里面画，然后使用矩阵平移
-            float[] mvpMatrix2 = getMvpMatrix2();
+            float[] mvpMatrix2 = getMvpMatrixOnMatrixDrawType();
             PointF pointF = translationXYList.get(i);
             Matrix.translateM(mvpMatrix2, 0, pointF.x, pointF.y, 1);
             GLMatrixUtils.scale(mvpMatrix2, 0.5f, 0.5f);
             triangleLayer.onDraw(colorArr[i], mvpMatrix2);
+        }
+        GLES20.glViewport(0, 0, width, height);
+    }
+
+
+    private void viewPortDraw() {
+        int[] colorArr = new int[]{Color.RED, Color.GREEN, Color.BLUE};
+        for (int i = 0; i < viewPortList.size(); i++) {
+            Point point = viewPortList.get(i);
+            int x = point.x;
+            int y = point.y;
+            float[] mvpMatrix = getMvpMatrixOnViewPortDrawType();
+            GLES20.glViewport(x, y, unifiedDstViewPortWidth, unifiedDstViewPortHeight);
+            triangleLayer.onDraw(colorArr[i], mvpMatrix);
         }
         GLES20.glViewport(0, 0, width, height);
     }
@@ -84,20 +97,9 @@ public class TriangleRenderer implements GLSurfaceView.Renderer {
         translationXYList.add(point2);
     }
 
-    private void viewPortDraw() {
-        int[] colorArr = new int[]{Color.RED, Color.GREEN, Color.BLUE};
-        for (int i = 0; i < viewPortList.size(); i++) {
-            Point point = viewPortList.get(i);
-            int x = point.x;
-            int y = point.y;
-            float[] mvpMatrix = getMvpMatrix();
-            GLES20.glViewport(x, y, unifiedDstViewPortWidth, unifiedDstViewPortHeight);
-            triangleLayer.onDraw(colorArr[i], mvpMatrix);
-        }
-        GLES20.glViewport(0, 0, width, height);
-    }
-
     private void getViewPortArrs(int width, int height) {
+        // GLES20.glViewport(0, 0, width, height);
+        // 指定视口的x,y。
         viewPortList = new ArrayList<>();
         Point point = new Point(0, 0);
         viewPortList.add(point);
@@ -107,10 +109,10 @@ public class TriangleRenderer implements GLSurfaceView.Renderer {
         viewPortList.add(point2);
     }
 
-    private float[] getMvpMatrix() {
+    private float[] getMvpMatrixOnViewPortDrawType() {
+        // 默认竖屏，最短边为基准
+        // 视口的width，height固定为glsurfaceview的四分之一
         float[] matrix = new float[16];
-
-        // 横屏模式把上面的顺序颠倒一下即可，思想是一样的。
         Matrix.orthoM(matrix, 0,
                 -1f, 1f,
                 -1.0f * unifiedDstViewPortHeight / unifiedDstViewPortWidth,
@@ -120,10 +122,8 @@ public class TriangleRenderer implements GLSurfaceView.Renderer {
         return matrix;
     }
 
-    private float[] getMvpMatrix2() {
+    private float[] getMvpMatrixOnMatrixDrawType() {
         float[] matrix = new float[16];
-
-        // 横屏模式把上面的顺序颠倒一下即可，思想是一样的。
         Matrix.orthoM(matrix, 0,
                 -1f, 1f,
                 -1.0f * height / width,
@@ -132,6 +132,5 @@ public class TriangleRenderer implements GLSurfaceView.Renderer {
 
         return matrix;
     }
-
 
 }
