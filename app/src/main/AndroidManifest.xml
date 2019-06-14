@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".GlActivity"/>
+        <activity android:name=".TriangleActivity"/>
 
     </application>
 

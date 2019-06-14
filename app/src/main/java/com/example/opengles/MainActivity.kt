@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun xx() {
-        startActivity(Intent(this, GlActivity::class.java))
+        startActivity(Intent(this, TriangleActivity::class.java))
     }
 }
 

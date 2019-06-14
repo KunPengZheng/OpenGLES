@@ -10,7 +10,7 @@ import com.example.opengles.renderer.TriangleRenderer
 /**
  * Created b Zwp on 2019/6/13.
  */
-class GlActivity : AppCompatActivity() {
+class TriangleActivity : AppCompatActivity() {
     var viewPortBtn: Button? = null
     var matrixBtn: Button? = null
     var glSurfaceView: GLSurfaceView? = null
