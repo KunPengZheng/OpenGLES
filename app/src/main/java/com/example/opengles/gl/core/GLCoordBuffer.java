@@ -16,6 +16,10 @@ public class GLCoordBuffer {
     private int mVertexStride;
     private int mTexCoordStride;
 
+    public GLCoordBuffer() {
+
+    }
+
     public GLCoordBuffer(float[] vertexCoord, float[] textureCoord) {
         mVertexBuffer = generateFloatBuffer(vertexCoord);
         mTexCoordBuffer = generateFloatBuffer(textureCoord);
@@ -26,6 +30,18 @@ public class GLCoordBuffer {
         mTexCoordStride = mCoordsPerVertex * SIZE_OF_FLOAT; // 纹理坐标一次取多少字节
     }
 
+    public void generateVertexFloatBuffer(float[] vertexCoord) {
+        mCoordsPerVertex = 2; // 一次取多少个，（x,y）一般是两个分量表示
+        mVertexBuffer = generateFloatBuffer(vertexCoord);
+        mVertexStride = mCoordsPerVertex * SIZE_OF_FLOAT; // 顶点坐标一次取多少字节
+        mVertexCount = vertexCoord.length / mCoordsPerVertex; // 顶点个数
+    }
+
+    public void generateTexCoordFloatBuffer(float[] textureCoord) {
+        mCoordsPerVertex = 2; // 一次取多少个，（x,y）一般是两个分量表示
+        mTexCoordBuffer = generateFloatBuffer(textureCoord);
+        mTexCoordStride = mCoordsPerVertex * SIZE_OF_FLOAT; // 纹理坐标一次取多少字节
+    }
 
     public FloatBuffer getVertexBuffer() {
         return mVertexBuffer;
@@ -34,7 +50,6 @@ public class GLCoordBuffer {
     public FloatBuffer getTexCoordBuffer() {
         return mTexCoordBuffer;
     }
-
 
     /**
      * Returns the number of vertices stored in the vertex array.
@@ -64,7 +79,7 @@ public class GLCoordBuffer {
         return mCoordsPerVertex;
     }
 
-    private FloatBuffer generateFloatBuffer(float[] floatArr) {
+    public FloatBuffer generateFloatBuffer(float[] floatArr) {
         FloatBuffer buffer = ByteBuffer.allocateDirect(floatArr.length * 4) // 创建数据缓存区
                 .order(ByteOrder.nativeOrder())                         // 设置字节顺序
                 .asFloatBuffer()                                        // 转换为Float 型缓冲
