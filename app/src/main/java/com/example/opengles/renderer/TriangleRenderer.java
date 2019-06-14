@@ -6,11 +6,13 @@ import android.graphics.PointF;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
+import com.example.opengles.gl.core.GLCoordBuffer;
 import com.example.opengles.gl.utils.GLMatrixUtils;
 import com.example.opengles.layer.TriangleLayer;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
+import java.nio.FloatBuffer;
 import java.util.ArrayList;
 
 /**
@@ -59,6 +61,12 @@ public class TriangleRenderer implements GLSurfaceView.Renderer {
         } else {
             matrixDraw();
         }
+    }
+
+    private void bg() {
+        GLCoordBuffer coordBuffer = new GLCoordBuffer();
+        FloatBuffer floatBuffer = coordBuffer.generateFloatBuffer(GLCoordBuffer.DEFAULT_VERTEX_COORDINATE);
+
     }
 
     private void matrixDraw() {
