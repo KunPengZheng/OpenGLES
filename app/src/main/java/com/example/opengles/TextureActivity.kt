@@ -40,7 +40,7 @@ class TextureActivity : AppCompatActivity() {
             glSurfaceView?.requestRender()
         }
 
-        if (it === nonMatrixBtn) {
+        if (it === matrix_1_1Btn) {
             textureRenderer?.setUserSelectDrawType(TextureRenderer.DrawType.TEXTURE_MATRIX_1_1)
             glSurfaceView?.requestRender()
         }
