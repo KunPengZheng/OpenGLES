@@ -66,6 +66,10 @@ public class TextureRenderer implements GLSurfaceView.Renderer {
         }
     }
 
+    // 9：16顶点坐标矩阵
+    // 要求图片：1：1显示，4：3显示，9：16显示
+    // 假设图片是9：16（实际宽高可能大于显示区，也可能小于显示区），则在1：1要求下，看你要截图中间，还是要以那一边进行缩放
+    //
     private float[] getMvpMatrix() {
         float[] matrix = new float[16];
         Matrix.orthoM(matrix, 0,
@@ -76,6 +80,19 @@ public class TextureRenderer implements GLSurfaceView.Renderer {
 
         return matrix;
     }
+
+//    private float[] getMvpMatrix(@ScaleType int scale) {
+//        switch (scale) {
+//            case ScaleType.SCALE_4_3:
+//                break;
+//            case ScaleType.SCALE_1_1:
+//                break;
+//            case ScaleType.SCALE_9_16:
+//                break;
+//            default:
+//                break;
+//        }
+//    }
 
     private float[] getTextureMatrix() {
         float[] matrix = new float[16];
@@ -107,5 +124,14 @@ public class TextureRenderer implements GLSurfaceView.Renderer {
     public @interface DrawType {
         int NON_TEXTURE_MATRIX = 0;
         int TEXTURE_MATRIX_1_1 = 1;
+    }
+
+    /**
+     * 宽高比
+     */
+    public @interface ScaleType {
+        int SCALE_1_1 = 0;
+        int SCALE_4_3 = 1;
+        int SCALE_9_16 = 2;
     }
 }
