@@ -39,26 +39,29 @@ class TextureActivity : AppCompatActivity() {
         glSurfaceView?.setOnClickListener(l)
         glSurfaceView?.renderMode = GLSurfaceView.RENDERMODE_WHEN_DIRTY
 
-        nonMatrixBtn = findViewById(R.id.none_matrix)
-        matrix_1_1Btn = findViewById(R.id.texture_matrix_1_1)
+//        nonMatrixBtn = findViewById(R.id.none_matrix)
+//        matrix_1_1Btn = findViewById(R.id.texture_matrix_1_1)
 
-        nonMatrixBtn?.setOnClickListener(l)
-        matrix_1_1Btn?.setOnClickListener(l)
+//        nonMatrixBtn?.setOnClickListener(l)
+//        matrix_1_1Btn?.setOnClickListener(l)
     }
 
     private val l = View.OnClickListener {
-        if (it === nonMatrixBtn) {
-            textureRenderer?.setUserSelectDrawType(TextureRenderer.DrawType.NON_TEXTURE_MATRIX)
-            glSurfaceView?.requestRender()
-        }
-
-        if (it === matrix_1_1Btn) {
-            textureRenderer?.setUserSelectDrawType(TextureRenderer.DrawType.TEXTURE_MATRIX_1_1)
-            glSurfaceView?.requestRender()
-        }
+        //        if (it === nonMatrixBtn) {
+//            textureRenderer?.setUserSelectDrawType(TextureRenderer.DrawType.NON_TEXTURE_MATRIX)
+//            glSurfaceView?.requestRender()
+//        }
+//
+//        if (it === matrix_1_1Btn) {
+//            textureRenderer?.setUserSelectDrawType(TextureRenderer.DrawType.TEXTURE_MATRIX_1_1)
+//            glSurfaceView?.requestRender()
+//        }
 
         if (it === glSurfaceView) {
-            Toast.makeText(this, "图片_宽:${bitmap?.width}" + "，高:${bitmap?.height}", Toast.LENGTH_SHORT).show()
+            val width = bitmap?.width
+            val height = bitmap?.height
+            val bmpScale = 1.0f * width!! / height!!
+            Toast.makeText(this, "图片_宽:$width，高:$height，比例:$bmpScale", Toast.LENGTH_SHORT).show()
         }
     }
 
