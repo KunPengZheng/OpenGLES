@@ -2,11 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/MvpMatrix_9_16"
-          android:title="纹理矩阵9:16"/>
-    <item android:id="@+id/MvpMatrix_1_1"
-          android:title="纹理矩阵1:1"/>
-    <item android:id="@+id/MvpMatrix_4_3"
-          android:title="纹理矩阵4:3"/>
+    <item android:id="@+id/texture_matrix"
+          app:showAsAction="always"
+          android:title="纹理矩阵"/>
+    <item android:id="@+id/mvp_matrix_9_16"
+          android:title="顶点矩阵9:16"/>
+    <item android:id="@+id/mvp_matrix_1_1"
+          android:title="顶点矩阵1:1"/>
+    <item android:id="@+id/mvp_matrix_4_3"
+          android:title="顶点矩阵4:3"/>
+
 
 </menu>

@@ -1,28 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".TriangleActivity"
-        android:orientation="vertical">
+        tools:context=".TriangleActivity">
+
 
     <!--<LinearLayout-->
-            <!--android:orientation="horizontal"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content">-->
+    <!--android:orientation="horizontal"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content">-->
 
-        <!--<Button-->
-                <!--android:id="@+id/none_matrix"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="无纹理矩阵，拉伸"/>-->
+    <!--<Button-->
+    <!--android:id="@+id/texture_matrix_identity"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="原始纹理矩阵"/>-->
 
-        <!--<Button-->
-                <!--android:id="@+id/texture_matrix_1_1"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="1:1纹理矩阵"/>-->
+    <!--<Button-->
+    <!--android:id="@+id/texture_matrix_9_16"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="9:16纹理矩阵"/>-->
+
+    <!--<Button-->
+    <!--android:id="@+id/texture_matrix_1_1"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="1:1纹理矩阵"/>-->
+
+    <!--<Button-->
+    <!--android:id="@+id/texture_matrix_4_3"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="4:3纹理矩阵"/>-->
+
     <!--</LinearLayout>-->
 
     <android.opengl.GLSurfaceView
@@ -30,4 +43,4 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
-</LinearLayout>
+</FrameLayout>

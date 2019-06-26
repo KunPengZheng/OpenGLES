@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
-import android.opengl.Matrix;
 import com.example.opengles.gl.core.MatrixState;
 import com.example.opengles.gl.utils.GLMatrixUtils;
 import com.example.opengles.layer.TextureLayer;
@@ -22,15 +21,12 @@ public class TextureRenderer implements GLSurfaceView.Renderer {
     private int width;
     private int height;
     private Bitmap bitmap;
-    private int type = DrawType.NON_TEXTURE_MATRIX;
+
+    private int textureMatrixType = TextureScaleType.IDENTITY;
     private int mvpMatrixType = ScaleType.SCALE_1_1;
 
     public TextureRenderer(Context context) {
         this.context = context;
-    }
-
-    public void setUserSelectDrawType(@DrawType int type) {
-        this.type = type;
     }
 
     public void setBitmap(Bitmap bmp) {
@@ -39,6 +35,10 @@ public class TextureRenderer implements GLSurfaceView.Renderer {
 
     public void setMvpMatrixType(@ScaleType int scale) {
         mvpMatrixType = scale;
+    }
+
+    public void setTextureMatrixType(@TextureScaleType int type) {
+        this.textureMatrixType = type;
     }
 
     @Override
@@ -58,25 +58,7 @@ public class TextureRenderer implements GLSurfaceView.Renderer {
     public void onDrawFrame(GL10 gl) {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
 
-        if (type == DrawType.NON_TEXTURE_MATRIX) {
-            textureLayer.onDraw(getMvpMatrix(mvpMatrixType), GLMatrixUtils.getIdentityMatrix());
-            return;
-        }
-        if (type == DrawType.TEXTURE_MATRIX_1_1) {
-            textureLayer.onDraw(getMvpMatrix(), getTextureMatrix());
-            return;
-        }
-    }
-
-    private float[] getMvpMatrix() {
-        float[] matrix = new float[16];
-        Matrix.orthoM(matrix, 0,
-                -1f, 1f,
-                -1.0f * height / width,
-                1.0f * height / width,
-                -1, 1);
-
-        return matrix;
+        textureLayer.onDraw(getMvpMatrix(mvpMatrixType), getTextureMatrix(textureMatrixType)/*GLMatrixUtils.getIdentityMatrix()*/);
     }
 
     private float[] getMvpMatrix(@ScaleType int scale) {
@@ -104,36 +86,60 @@ public class TextureRenderer implements GLSurfaceView.Renderer {
         return matrixState.getMVPMatrix();
     }
 
-    private float[] getTextureMatrix() {
-        float[] matrix = new float[16];
+    private float[] getTextureMatrix(@TextureScaleType int scale) {
+//        float[] matrix = new float[16];
+//
+//        int widthBmp = bitmap.getWidth();
+//        int heightBmp = bitmap.getHeight();
+//
+//        if (widthBmp > heightBmp) {
+//            Matrix.orthoM(matrix, 0,
+//                    -1.0f * widthBmp / heightBmp,
+//                    1.0f * widthBmp / heightBmp,
+//                    -1f, 1f,
+//                    -1, 1);
+//        } else if (widthBmp < heightBmp) {
+//            Matrix.orthoM(matrix, 0,
+//                    -1f, 1f,
+//                    -1.0f * heightBmp / widthBmp,
+//                    1.0f * heightBmp / widthBmp,
+//                    -1, 1);
+//        } else {
+//            Matrix.orthoM(matrix, 0,
+//                    -1f, 1f,
+//                    -1f, 1f,
+//                    -1, 1);
+//        }
+//        return matrix;
 
         int widthBmp = bitmap.getWidth();
         int heightBmp = bitmap.getHeight();
 
-        if (widthBmp > heightBmp) {
-            Matrix.orthoM(matrix, 0,
-                    -1.0f * widthBmp / heightBmp,
-                    1.0f * widthBmp / heightBmp,
-                    -1f, 1f,
-                    -1, 1);
-        } else if (widthBmp < heightBmp) {
-            Matrix.orthoM(matrix, 0,
-                    -1f, 1f,
-                    -1.0f * heightBmp / widthBmp,
-                    1.0f * heightBmp / widthBmp,
-                    -1, 1);
-        } else {
-            Matrix.orthoM(matrix, 0,
-                    -1f, 1f,
-                    -1f, 1f,
-                    -1, 1);
-        }
-        return matrix;
-    }
+        MatrixState matrixState = new MatrixState();
+        matrixState.setProjectOrtho(-1, 1, -1.0f * heightBmp / widthBmp, 1.0f * heightBmp / widthBmp, -1, 1);
 
-    public @interface DrawType {
-        int NON_TEXTURE_MATRIX = 0;
-        int TEXTURE_MATRIX_1_1 = 1;
+        switch (scale) {
+
+            case TextureScaleType.IDENTITY:
+                return GLMatrixUtils.getIdentityMatrix();
+
+            case TextureScaleType.SCALE_4_3:
+                matrixState.scale(1f, 3f / 4f, 1f);
+                break;
+
+            case TextureScaleType.SCALE_1_1:
+                matrixState.scale(1f, 1f / 1f, 1f);
+                break;
+
+            case TextureScaleType.SCALE_9_16:
+                matrixState.scale(1f, 16f / 9f, 1f);
+                break;
+
+            default:
+                break;
+        }
+
+        return matrixState.getMVPMatrix();
     }
 
     /**
@@ -143,5 +149,15 @@ public class TextureRenderer implements GLSurfaceView.Renderer {
         int SCALE_1_1 = 0;
         int SCALE_4_3 = 1;
         int SCALE_9_16 = 2;
+    }
+
+    /**
+     * 宽高比
+     */
+    public @interface TextureScaleType {
+        int IDENTITY = 0;
+        int SCALE_1_1 = 1;
+        int SCALE_4_3 = 2;
+        int SCALE_9_16 = 3;
     }
 }
