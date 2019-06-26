@@ -7,23 +7,23 @@
         tools:context=".TriangleActivity"
         android:orientation="vertical">
 
-    <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    <!--<LinearLayout-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content">-->
 
-        <Button
-                android:id="@+id/none_matrix"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="无纹理矩阵，拉伸"/>
+        <!--<Button-->
+                <!--android:id="@+id/none_matrix"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="无纹理矩阵，拉伸"/>-->
 
-        <Button
-                android:id="@+id/texture_matrix_1_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1:1纹理矩阵"/>
-    </LinearLayout>
+        <!--<Button-->
+                <!--android:id="@+id/texture_matrix_1_1"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="1:1纹理矩阵"/>-->
+    <!--</LinearLayout>-->
 
     <android.opengl.GLSurfaceView
             android:id="@+id/gl_view"
