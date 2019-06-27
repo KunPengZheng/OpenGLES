@@ -20,6 +20,11 @@ public class GLCoordBuffer {
 
     }
 
+    /**
+     * 生成顶点坐标和纹理坐标的数据缓冲
+     * @param vertexCoord  顶点坐标数组
+     * @param textureCoord 纹理坐标数组
+     */
     public GLCoordBuffer(float[] vertexCoord, float[] textureCoord) {
         mVertexBuffer = generateFloatBuffer(vertexCoord);
         mTexCoordBuffer = generateFloatBuffer(textureCoord);
@@ -30,6 +35,10 @@ public class GLCoordBuffer {
         mTexCoordStride = mCoordsPerVertex * SIZE_OF_FLOAT; // 纹理坐标一次取多少字节
     }
 
+    /**
+     * 生成顶点坐标的数据缓冲
+     * @param vertexCoord
+     */
     public void generateVertexFloatBuffer(float[] vertexCoord) {
         mCoordsPerVertex = 2; // 一次取多少个，（x,y）一般是两个分量表示
         mVertexBuffer = generateFloatBuffer(vertexCoord);
@@ -37,6 +46,10 @@ public class GLCoordBuffer {
         mVertexCount = vertexCoord.length / mCoordsPerVertex; // 顶点个数
     }
 
+    /**
+     * 生成纹理坐标的数据缓冲
+     * @param textureCoord
+     */
     public void generateTexCoordFloatBuffer(float[] textureCoord) {
         mCoordsPerVertex = 2; // 一次取多少个，（x,y）一般是两个分量表示
         mTexCoordBuffer = generateFloatBuffer(textureCoord);
@@ -89,7 +102,7 @@ public class GLCoordBuffer {
         return buffer;
     }
 
-    private static final int SIZE_OF_FLOAT = 4; // 四个字节
+    private static final int SIZE_OF_FLOAT = 4; // float类型32位，四个字节
 
     // 铺满视口的默认顶点坐标
     public static final float[] DEFAULT_VERTEX_COORDINATE = {

@@ -12,35 +12,65 @@ import com.example.opengles.gl.utils.GLUtilsEx;
 public class GLBaseLayer implements GLLayer {
     private static final String TAG = GLBaseLayer.class.getSimpleName();
 
-    /** 程序句柄 */
+    /**
+     * 程序句柄
+     */
     protected int mProgramHandle = GLUtilsEx.INVALID_HANDLE;
-    /** 顶点坐标句柄 */
+    /**
+     * 顶点坐标句柄
+     */
     protected int aPositionLoc = GLUtilsEx.INVALID_HANDLE;
-    /** 纹理坐标句柄 */
+    /**
+     * 纹理坐标句柄
+     */
     protected int aTextureCoordLoc = GLUtilsEx.INVALID_HANDLE;
-    /** 坐标坐标矩阵句柄 */
+    /**
+     * 坐标坐标矩阵句柄
+     */
     protected int uMVPMatrixLoc = GLUtilsEx.INVALID_HANDLE;
-    /** 纹理坐标矩阵句柄 */
+    /**
+     * 纹理坐标矩阵句柄
+     */
     protected int uTexMatrixLoc = GLUtilsEx.INVALID_HANDLE;
-    /** 纹理句柄 */
+    /**
+     * 纹理句柄
+     */
     protected int mTextureLoc = GLUtilsEx.INVALID_HANDLE;
-
-    /** 顶点坐标和纹理坐标 */
+    /**
+     * 顶点坐标和纹理坐标
+     */
     protected GLCoordBuffer mGLCoordBuffer;
-    // 矩阵控制
+    /**
+     * 矩阵控制
+     */
     protected MatrixState mMatrixState;
-
-    protected int mDrawMode = GLES20.GL_TRIANGLE_STRIP; // 绘制的模式
+    /**
+     * 绘制的模式
+     */
+    protected int mDrawMode = GLES20.GL_TRIANGLE_STRIP;
 
     private GLBaseLayer() {
         // no - op by default
     }
 
+    /**
+     * @param vertexCoord    顶点坐标数组
+     * @param textureCoord   纹理坐标数组
+     * @param vertexShader   顶点着色器
+     * @param fragmentShader 片元着色器
+     */
     public GLBaseLayer(float[] vertexCoord, float[] textureCoord,
                        String vertexShader, String fragmentShader) {
         this(vertexCoord, textureCoord, vertexShader, fragmentShader, new MatrixState());
     }
 
+    /**
+     * @param vertexCoord    顶点坐标数组
+     * @param textureCoord   纹理坐标数组
+     * @param vertexShader   顶点着色器
+     * @param fragmentShader 片元着色器
+     * @param matrixState    矩阵控制
+     */
     public GLBaseLayer(float[] vertexCoord, float[] textureCoord,
                        String vertexShader, String fragmentShader, MatrixState matrixState) {
         mMatrixState = matrixState;
