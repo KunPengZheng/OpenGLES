@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             private val mBtn: Button
 
             init {
-                mBtn = itemView.findViewById(R.id.mBtn) as Button
+                mBtn = itemView.findViewById(R.id.item) as Button
                 mBtn.setOnClickListener(this@MainActivity)
             }
 

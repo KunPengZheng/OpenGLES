@@ -2,7 +2,6 @@
 <resources>
     <item name="gl_view" type="id"/>
 
-    <item name="mBtn" type="id"/>
     <item name="recycle_view" type="id"/>
 
     <item name="btn_matrix_type" type="id"/>
