@@ -86,6 +86,15 @@ public class MatrixState {
         Matrix.translateM(mMMatrix, 0, x, y, z);
     }
 
+    /**
+     * 选择对应的坐标轴进行旋转，选择的坐标轴为1f逆时针旋转（-1则为顺时针旋转），否则为0f
+     * 其实输入的值就是0和非0，正负会影响旋转的顺逆
+     *
+     * @param angle 角度
+     * @param x     x轴
+     * @param y     y轴
+     * @param z     z轴
+     */
     public void rotate(float angle, float x, float y, float z) {
         Matrix.rotateM(mMMatrix, 0, angle, x, y, z);
     }
