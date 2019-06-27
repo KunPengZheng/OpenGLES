@@ -22,8 +22,12 @@ public class TextureRenderer implements GLSurfaceView.Renderer {
     private int height;
     private Bitmap bitmap;
 
+    @TextureScaleType
     private int textureMatrixType = TextureScaleType.IDENTITY;
-    private int mvpMatrixType = ScaleType.SCALE_1_1;
+    @MvpScaleType
+    private int mvpMatrixType = MvpScaleType.SCALE_1_1;
+    @MvpRotateType
+    private int mvpRotateType = MvpRotateType.IDENTITY;
 
     public TextureRenderer(Context context) {
         this.context = context;
@@ -33,12 +37,16 @@ public class TextureRenderer implements GLSurfaceView.Renderer {
         bitmap = bmp;
     }
 
-    public void setMvpMatrixType(@ScaleType int scale) {
-        mvpMatrixType = scale;
+    public void setMvpMatrixType(@MvpScaleType int scale) {
+        this.mvpMatrixType = scale;
     }
 
     public void setTextureMatrixType(@TextureScaleType int type) {
         this.textureMatrixType = type;
+    }
+
+    public void setMvpRotateType(@MvpRotateType int type) {
+        this.mvpRotateType = type;
     }
 
     @Override
@@ -61,21 +69,21 @@ public class TextureRenderer implements GLSurfaceView.Renderer {
         textureLayer.onDraw(getMvpMatrix(mvpMatrixType), getTextureMatrix(textureMatrixType));
     }
 
-    private float[] getMvpMatrix(@ScaleType int scale) {
+    private float[] getMvpMatrix(@MvpScaleType int scale) {
 
         MatrixState matrixState = new MatrixState();
         matrixState.setProjectOrtho(-1, 1, -1.0f * height / width, 1.0f * height / width, -1, 1);
 
         switch (scale) {
-            case ScaleType.SCALE_4_3:
+            case MvpScaleType.SCALE_4_3:
                 matrixState.scale(1f, 3f / 4f, 1f);
                 break;
 
-            case ScaleType.SCALE_1_1:
+            case MvpScaleType.SCALE_1_1:
                 matrixState.scale(1f, 1f / 1f, 1f);
                 break;
 
-            case ScaleType.SCALE_9_16:
+            case MvpScaleType.SCALE_9_16:
                 matrixState.scale(1f, 16f / 9f, 1f);
                 break;
 
@@ -83,8 +91,31 @@ public class TextureRenderer implements GLSurfaceView.Renderer {
                 break;
         }
 
-//        matrixState.rotate(90f, 0f, 0f, 1f);
+        // 矩阵旋转
+        mvpRotate(matrixState);
+
         return matrixState.getMVPMatrix();
+    }
+
+    private void mvpRotate(MatrixState matrixState) {
+
+        switch (mvpRotateType) {
+
+            case MvpRotateType.ROTATE_CW_Z_90:
+                matrixState.rotate(90f, 0f, 0f, -1f);
+                break;
+
+            case MvpRotateType.ROTATE_CCW_Z_90:
+                matrixState.rotate(90f, 0f, 0f, 1f);
+                break;
+
+
+            case MvpRotateType.IDENTITY:
+            default:
+                // 全部传0显示不出图片，所以默认的话不写就好
+//                matrixState.rotate(0f, 0f, 0f, 0f);
+                break;
+        }
     }
 
     private float[] getTextureMatrix(@TextureScaleType int scale) {
@@ -120,16 +151,16 @@ public class TextureRenderer implements GLSurfaceView.Renderer {
     }
 
     /**
-     * 宽高比
+     * 顶点坐标矩阵类型
      */
-    public @interface ScaleType {
+    public @interface MvpScaleType {
         int SCALE_1_1 = 0;
         int SCALE_4_3 = 1;
         int SCALE_9_16 = 2;
     }
 
     /**
-     * 宽高比
+     * 纹理坐标矩阵类型
      */
     public @interface TextureScaleType {
         int IDENTITY = 0;
@@ -137,4 +168,15 @@ public class TextureRenderer implements GLSurfaceView.Renderer {
         int SCALE_4_3 = 2;
         int SCALE_9_16 = 3;
     }
+
+    /**
+     * 顶点坐标矩阵旋转类型
+     */
+    public @interface MvpRotateType {
+        // CW：顺时针  CCW：逆时针
+        int IDENTITY = 0;
+        int ROTATE_CW_Z_90 = 1;
+        int ROTATE_CCW_Z_90 = 2;
+    }
+
 }

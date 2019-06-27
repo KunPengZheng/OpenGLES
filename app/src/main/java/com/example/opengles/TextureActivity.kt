@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.opengles.renderer.TextureRenderer
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
 /**
@@ -18,9 +19,10 @@ import com.example.opengles.renderer.TextureRenderer
  */
 class TextureActivity : AppCompatActivity() {
 
+    private var bitmap: Bitmap? = null
     private var glSurfaceView: GLSurfaceView? = null
     private var textureRenderer: TextureRenderer? = null
-    private var bitmap: Bitmap? = null
+    private var floatingActionButton: FloatingActionButton? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +40,8 @@ class TextureActivity : AppCompatActivity() {
         glSurfaceView?.setOnClickListener(l)
         glSurfaceView?.renderMode = GLSurfaceView.RENDERMODE_WHEN_DIRTY
 
+        floatingActionButton = findViewById(R.id.fab_rotate)
+        floatingActionButton?.setOnClickListener(l)
     }
 
     private val l = View.OnClickListener {
@@ -47,6 +51,10 @@ class TextureActivity : AppCompatActivity() {
             val height = bitmap?.height
             val bmpScale = 1.0f * width!! / height!!
             Toast.makeText(this, "图片_宽:$width，高:$height，比例:$bmpScale", Toast.LENGTH_SHORT).show()
+        }
+
+        if (it === floatingActionButton) {
+            showRotateDialog()
         }
     }
 
@@ -70,9 +78,9 @@ class TextureActivity : AppCompatActivity() {
                 showTextureDialog()
                 return super.onOptionsItemSelected(item)
             }
-            R.id.mvp_matrix_9_16 -> textureRenderer?.setMvpMatrixType(TextureRenderer.ScaleType.SCALE_9_16)
-            R.id.mvp_matrix_4_3 -> textureRenderer?.setMvpMatrixType(TextureRenderer.ScaleType.SCALE_4_3)
-            R.id.mvp_matrix_1_1 -> textureRenderer?.setMvpMatrixType(TextureRenderer.ScaleType.SCALE_1_1)
+            R.id.mvp_matrix_9_16 -> textureRenderer?.setMvpMatrixType(TextureRenderer.MvpScaleType.SCALE_9_16)
+            R.id.mvp_matrix_4_3 -> textureRenderer?.setMvpMatrixType(TextureRenderer.MvpScaleType.SCALE_4_3)
+            R.id.mvp_matrix_1_1 -> textureRenderer?.setMvpMatrixType(TextureRenderer.MvpScaleType.SCALE_1_1)
 
         }
         glSurfaceView?.requestRender()
@@ -96,6 +104,29 @@ class TextureActivity : AppCompatActivity() {
 
                 val type: Int = hashMap[toTypedArray[which]]!!
                 textureRenderer?.setTextureMatrixType(type)
+                glSurfaceView?.requestRender()
+            }
+            .setNegativeButton("取消", null)
+            .create()
+            .show()
+    }
+
+    private fun showRotateDialog() {
+        val hashMap = HashMap<String, Int>()
+        hashMap["原始（无）"] = TextureRenderer.MvpRotateType.IDENTITY
+        hashMap["绕z轴顺时针旋转90°"] = TextureRenderer.MvpRotateType.ROTATE_CW_Z_90
+        hashMap["绕z轴逆时针旋转90°"] = TextureRenderer.MvpRotateType.ROTATE_CCW_Z_90
+        val keys = hashMap.keys
+        val toList = keys.toList()
+        val toTypedArray = toList.toTypedArray()
+
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("纹理矩阵单选框")
+            .setSingleChoiceItems(toTypedArray, -1) { dialog, which ->
+                dialog.dismiss()
+
+                val type: Int = hashMap[toTypedArray[which]]!!
+                textureRenderer?.setMvpRotateType(type)
                 glSurfaceView?.requestRender()
 
             }
