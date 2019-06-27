@@ -83,34 +83,11 @@ public class TextureRenderer implements GLSurfaceView.Renderer {
                 break;
         }
 
+//        matrixState.rotate(90f, 0f, 0f, 1f);
         return matrixState.getMVPMatrix();
     }
 
     private float[] getTextureMatrix(@TextureScaleType int scale) {
-//        float[] matrix = new float[16];
-//
-//        int widthBmp = bitmap.getWidth();
-//        int heightBmp = bitmap.getHeight();
-//
-//        if (widthBmp > heightBmp) {
-//            Matrix.orthoM(matrix, 0,
-//                    -1.0f * widthBmp / heightBmp,
-//                    1.0f * widthBmp / heightBmp,
-//                    -1f, 1f,
-//                    -1, 1);
-//        } else if (widthBmp < heightBmp) {
-//            Matrix.orthoM(matrix, 0,
-//                    -1f, 1f,
-//                    -1.0f * heightBmp / widthBmp,
-//                    1.0f * heightBmp / widthBmp,
-//                    -1, 1);
-//        } else {
-//            Matrix.orthoM(matrix, 0,
-//                    -1f, 1f,
-//                    -1f, 1f,
-//                    -1, 1);
-//        }
-//        return matrix;
 
         int widthBmp = bitmap.getWidth();
         int heightBmp = bitmap.getHeight();
