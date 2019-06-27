@@ -12,5 +12,4 @@
     <item android:id="@+id/mvp_matrix_4_3"
           android:title="顶点矩阵4:3"/>
 
-
 </menu>
