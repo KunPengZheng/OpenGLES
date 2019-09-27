@@ -5,7 +5,7 @@ import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
 /**
- * 坐标Buffer数据Bean
+ * 顶点和纹理的坐标Buffer数据Bean
  */
 public class GLCoordBuffer {
     private FloatBuffer mVertexBuffer;
