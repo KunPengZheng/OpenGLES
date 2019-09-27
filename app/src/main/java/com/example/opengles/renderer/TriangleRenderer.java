@@ -6,12 +6,15 @@ import android.graphics.PointF;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
+
 import com.example.opengles.gl.core.GLCoordBuffer;
 import com.example.opengles.gl.utils.GLMatrixUtils;
+import com.example.opengles.gl.utils.GLUtilsEx;
 import com.example.opengles.layer.TriangleLayer;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
+
 import java.nio.FloatBuffer;
 import java.util.ArrayList;
 
@@ -36,8 +39,7 @@ public class TriangleRenderer implements GLSurfaceView.Renderer {
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
         triangleLayer = new TriangleLayer();
-
-        GLES20.glClearColor(0f, 0f, 0f, 1f);
+        GLUtilsEx.glClearColor();
     }
 
     @Override
@@ -54,7 +56,7 @@ public class TriangleRenderer implements GLSurfaceView.Renderer {
     @Override
     public void onDrawFrame(GL10 gl) {
 
-        GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
+        GLUtilsEx.glClear();
 
         if (drawTypeFlag) {
             viewPortDraw();
