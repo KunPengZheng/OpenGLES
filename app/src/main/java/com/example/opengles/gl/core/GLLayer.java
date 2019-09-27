@@ -53,7 +53,8 @@ public interface GLLayer {
     void onEnableTexture(int target, int textureId);
 
     /**
-     * 获取顶点着色器和片元着色器所需变量的句柄
+     * 获取顶点着色器和片元着色器所需变量的常用句柄
+     * 一般需要使用者重写，因为.gles文件的数据是不同的
      */
     void getHandle();
 
