@@ -91,7 +91,10 @@ public class GLCoordBuffer {
 
     private static final int SIZE_OF_FLOAT = 4; // 四个字节
 
-    // 铺满视口的默认顶点坐标
+    /**
+     * 铺满视口的默认顶点坐标
+     * （x,y）二维坐标系，取值范围[0,1]
+     */
     public static final float[] DEFAULT_VERTEX_COORDINATE = {
             -1.0f, -1.0f,        // 0 left bottom
             1.0f, -1.0f,         // 1 right bottom
@@ -99,7 +102,10 @@ public class GLCoordBuffer {
             1.0f, 1.0f            // 3 right top
     };
 
-    // 铺满视口默认的纹理坐标
+    /**
+     * 铺满视口默认的纹理坐标
+     * （x,y）二维坐标系，取值范围[0,1]
+     */
     public static final float[] DEFAULT_TEXTURE_COORDINATE = {
             0.0f, 0.0f,            // 0 left bottom
             1.0f, 0.0f,            // 1 right bottom
@@ -107,7 +113,10 @@ public class GLCoordBuffer {
             1.0f, 1.0f,            // 3 right top
     };
 
-    // 铺满视口默认上下翻转的纹理坐标
+    /**
+     * 铺满视口默认上下翻转的纹理坐标
+     * （x,y）二维坐标系，取值范围[0,1]
+     */
     public static final float[] DEFAULT_FLIP_Y_TEXTURE_COORDINATE = {
             0.0f, 1.0f,            // 0 left top
             1.0f, 1.0f,            // 1 right top
