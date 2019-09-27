@@ -17,22 +17,27 @@ public class GLBaseLayer implements GLLayer {
      * 程序句柄
      */
     protected int mProgramHandle = GLUtilsEx.INVALID_HANDLE;
+
     /**
      * 顶点坐标句柄
      */
     protected int aPositionLoc = GLUtilsEx.INVALID_HANDLE;
+
     /**
      * 纹理坐标句柄
      */
     protected int aTextureCoordLoc = GLUtilsEx.INVALID_HANDLE;
+
     /**
      * 坐标坐标矩阵句柄
      */
     protected int uMVPMatrixLoc = GLUtilsEx.INVALID_HANDLE;
+
     /**
      * 纹理坐标矩阵句柄
      */
     protected int uTexMatrixLoc = GLUtilsEx.INVALID_HANDLE;
+
     /**
      * 纹理句柄
      */
@@ -42,10 +47,16 @@ public class GLBaseLayer implements GLLayer {
      * 顶点坐标和纹理坐标
      */
     protected GLCoordBuffer mGLCoordBuffer;
-    // 矩阵控制
+
+    /**
+     * 矩阵控制
+     */
     protected MatrixState mMatrixState;
 
-    protected int mDrawMode = GLES20.GL_TRIANGLE_STRIP; // 绘制的模式
+    /**
+     * 绘制的模式
+     */
+    protected int mDrawMode = GLES20.GL_TRIANGLE_STRIP;
 
     private GLBaseLayer() {
         // no - op by default
@@ -72,7 +83,7 @@ public class GLBaseLayer implements GLLayer {
      * @param textureCoord   纹理坐标
      * @param vertexShader   顶点着色器
      * @param fragmentShader 片元着色器
-     * @param matrixState
+     * @param matrixState    矩阵控制器
      */
     public GLBaseLayer(float[] vertexCoord, float[] textureCoord,
                        String vertexShader, String fragmentShader, MatrixState matrixState) {
