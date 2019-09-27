@@ -8,12 +8,34 @@ import java.nio.FloatBuffer;
  * 顶点和纹理的坐标Buffer数据Bean
  */
 public class GLCoordBuffer {
-    private FloatBuffer mVertexBuffer;
+    /**
+     * 顶点坐标数据缓冲
+     */
+    private FloatBuffer mVertexCoorBuffer;
+
+    /**
+     * 纹理坐标数据缓冲
+     */
     private FloatBuffer mTexCoordBuffer;
 
+    /**
+     * 顶点个数
+     */
     private int mVertexCount;
+
+    /**
+     * 一个点用几个分量表示（x,y）
+     */
     private int mCoordsPerVertex;
+
+    /**
+     * 纹理坐标中一个点的字节偏移量
+     */
     private int mVertexStride;
+
+    /**
+     * 顶点坐标中一个点的字节偏移量
+     */
     private int mTexCoordStride;
 
     public GLCoordBuffer() {
@@ -22,14 +44,15 @@ public class GLCoordBuffer {
 
     /**
      * 生成顶点坐标和纹理坐标的数据缓冲
+     *
      * @param vertexCoord  顶点坐标数组
      * @param textureCoord 纹理坐标数组
      */
     public GLCoordBuffer(float[] vertexCoord, float[] textureCoord) {
-        mVertexBuffer = generateFloatBuffer(vertexCoord);
+        mVertexCoorBuffer = generateFloatBuffer(vertexCoord);
         mTexCoordBuffer = generateFloatBuffer(textureCoord);
 
-        mCoordsPerVertex = 2; // 一次取多少个，（x,y）一般是两个分量表示
+        mCoordsPerVertex = 2; // 一次取多少个，（x,y）一般是两个分量表示一个点
         mVertexStride = mCoordsPerVertex * SIZE_OF_FLOAT; // 顶点坐标一次取多少字节
         mVertexCount = vertexCoord.length / mCoordsPerVertex; // 顶点个数
         mTexCoordStride = mCoordsPerVertex * SIZE_OF_FLOAT; // 纹理坐标一次取多少字节
@@ -37,17 +60,19 @@ public class GLCoordBuffer {
 
     /**
      * 生成顶点坐标的数据缓冲
+     *
      * @param vertexCoord
      */
     public void generateVertexFloatBuffer(float[] vertexCoord) {
-        mCoordsPerVertex = 2; // 一次取多少个，（x,y）一般是两个分量表示
-        mVertexBuffer = generateFloatBuffer(vertexCoord);
+        mCoordsPerVertex = 2; // 一次取多少个，（x,y）一般是两个分量表示一个点
+        mVertexCoorBuffer = generateFloatBuffer(vertexCoord);
         mVertexStride = mCoordsPerVertex * SIZE_OF_FLOAT; // 顶点坐标一次取多少字节
         mVertexCount = vertexCoord.length / mCoordsPerVertex; // 顶点个数
     }
 
     /**
      * 生成纹理坐标的数据缓冲
+     *
      * @param textureCoord
      */
     public void generateTexCoordFloatBuffer(float[] textureCoord) {
@@ -57,7 +82,7 @@ public class GLCoordBuffer {
     }
 
     public FloatBuffer getVertexBuffer() {
-        return mVertexBuffer;
+        return mVertexCoorBuffer;
     }
 
     public FloatBuffer getTexCoordBuffer() {
