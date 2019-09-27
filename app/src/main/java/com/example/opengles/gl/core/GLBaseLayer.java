@@ -52,8 +52,13 @@ public class GLBaseLayer implements GLLayer {
     }
 
     /**
-     * @param vertexCoord    顶点坐标
-     * @param textureCoord   纹理坐标
+     * @param vertexCoord    顶点坐标，一般设置[0,1]铺满视口。虽然也能调整此坐标范围去防止图片变形，
+     *                       但一般因为这个大小和ui的设计稿指定的显示区域的大小是一致的，所以一般不调整
+     *                       这个参数去适配图片。如果调整这个参数去适配图片的话，那么纹理应该获取整张图
+     *                       即取0或1，但强烈不推荐修改此参数那适配图片。
+     * @param textureCoord   纹理坐标，和纹理矩阵搭配去获取对应的纹理区域实现防止图片的拉伸。
+     *                       1）显示区域宽高比例和图片宽高比例一致：
+     *                       a.
      * @param vertexShader   顶点着色器
      * @param fragmentShader 片元着色器
      */
