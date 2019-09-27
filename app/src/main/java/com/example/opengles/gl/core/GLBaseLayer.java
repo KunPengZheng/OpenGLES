@@ -123,6 +123,8 @@ public class GLBaseLayer implements GLLayer {
 
     @Override
     public void getHandle() {
+        // 1.使用glGetAttribLocation()获取.gles文件中attribute修饰的变量的句柄
+        // 2.使用glGetUniformLocation()获取.gles文件中uniform修饰的变量的句柄
         aPositionLoc = GLES20.glGetAttribLocation(mProgramHandle, "aPosition");
         aTextureCoordLoc = GLES20.glGetAttribLocation(mProgramHandle, "aTextureCoord");
         uMVPMatrixLoc = GLES20.glGetUniformLocation(mProgramHandle, "uMVPMatrix");
