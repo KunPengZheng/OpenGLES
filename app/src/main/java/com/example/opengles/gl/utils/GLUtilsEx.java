@@ -5,8 +5,10 @@ import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.opengl.GLES20;
 import android.util.Log;
+
 import androidx.annotation.Nullable;
 import androidx.annotation.RawRes;
+
 import com.example.opengles.BuildConfig;
 
 import java.nio.ByteBuffer;
@@ -262,5 +264,27 @@ public class GLUtilsEx {
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, 0);
 
         return textureId;
+    }
+
+    /**
+     * 设置清屏颜色，默认为黑色
+     * 一般只设置一次
+     * <p>
+     * GLSurfaceView.Renderer#onSurfaceCreated()
+     * </p>
+     */
+    public void glClearColor() {
+        GLES20.glClearColor(0f, 0f, 0f, 1f);
+    }
+
+    /**
+     * 清屏操作
+     * 一般只调用一次
+     * <p>
+     * GLSurfaceView.Renderer#onDrawFrame()
+     * </p>
+     */
+    public void glClear() {
+        GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
     }
 }
