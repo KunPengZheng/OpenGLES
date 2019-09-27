@@ -2,6 +2,7 @@ package com.example.opengles.gl.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.opengl.GLES20;
 import android.util.Log;
@@ -273,7 +274,7 @@ public class GLUtilsEx {
      * GLSurfaceView.Renderer#onSurfaceCreated()
      * </p>
      */
-    public void glClearColor() {
+    public static void glClearColor() {
         GLES20.glClearColor(0f, 0f, 0f, 1f);
     }
 
@@ -284,7 +285,7 @@ public class GLUtilsEx {
      * GLSurfaceView.Renderer#onDrawFrame()
      * </p>
      */
-    public void glClear() {
+    public static void glClear() {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
     }
 }
