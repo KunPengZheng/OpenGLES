@@ -6,5 +6,5 @@
         android:layout_height="wrap_content"
         android:textSize="14sp"
         android:textColor="#FF2B2B2B"
-        android:id="@+id/mBtn" />
+        android:id="@+id/item" />
 </RelativeLayout>

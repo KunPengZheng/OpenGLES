@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.example.opengles">
 
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <uses-feature android:glEsVersion="0x00020000" android:required="true"/>
 
     <application
@@ -21,6 +25,7 @@
 
         <activity android:name=".TriangleActivity"/>
         <activity android:name=".TextureActivity"/>
+        <activity android:name=".CameraActivity"/>
 
     </application>
 
