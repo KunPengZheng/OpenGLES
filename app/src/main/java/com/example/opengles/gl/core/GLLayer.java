@@ -27,7 +27,12 @@ public interface GLLayer {
     void initGlCoordinateBuffer(final float[] vertexCoord, final float[] textureCoord);
 
     /**
-     * 初始化着色器
+     * 初始化着色器，只执行一次就好
+     *
+     * 1. 创建顶点和片元着色器
+     * 2. 创建程序
+     * 3. 将着色器链接程序
+     * 4. 获取常规句柄
      *
      * @param vertexShader   顶点着色器
      * @param fragmentShader 纹理着色器

@@ -105,10 +105,13 @@ public class GLBaseLayer implements GLLayer {
 
     @Override
     public void initShader(String vertexShader, String fragmentShader) {
+        // 获取程序句柄
         mProgramHandle = GLUtilsEx.createProgram(vertexShader, fragmentShader);
+        // 检查程序是否有效
         checkProgram(mProgramHandle);
 
         if (mProgramHandle > 0) {
+            // 获取程序句柄中的常用成员句柄
             getHandle();
         }
     }
