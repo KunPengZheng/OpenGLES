@@ -1,6 +1,7 @@
 package com.example.opengles.gl.core;
 
 import android.opengl.GLES20;
+import android.opengl.GLSurfaceView;
 import android.util.Log;
 
 import com.example.opengles.BuildConfig;
@@ -271,4 +272,27 @@ public class GLBaseLayer implements GLLayer {
             }
         }
     }
+
+    /**
+     * 设置清屏颜色，默认为黑色
+     * 一般只设置一次
+     * <p>
+     * GLSurfaceView.Renderer#onSurfaceCreated()
+     * </p>
+     */
+    public void glClearColor() {
+        GLES20.glClearColor(0f, 0f, 0f, 1f);
+    }
+
+    /**
+     * 清屏操作
+     * 一般只调用一次
+     * <p>
+     * GLSurfaceView.Renderer#onDrawFrame()
+     * </p>
+     */
+    public void glClear() {
+        GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
+    }
+
 }
